@@ -1,0 +1,357 @@
+/* eslint-disable */
+/* stylelint-disable */
+/* This file uses Tailwind CSS directives which may trigger linter warnings */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import glitch effects */
+@import './styles/glitch.css';
+
+@layer base {
+  :root {
+    --background: 222 42% 9%;
+    --foreground: 210 40% 98%;
+
+    --card: 223 44% 7%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 223 44% 7%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 220 100% 59%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 222 22% 25%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 223 20% 18%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 220 70% 45%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 223 30% 20%;
+    --input: 223 30% 20%;
+    --ring: 224 76.3% 48%;
+
+    --radius: 0.3rem;
+
+    --sidebar-background: 223 44% 7%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 220 100% 59%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 22% 25%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 223 30% 20%;
+    --sidebar-ring: 224 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-solo-dark text-foreground antialiased selection:bg-solo-blue selection:text-white;
+    background-image: radial-gradient(circle at 50% 0%, rgba(46, 107, 255, 0.15) 0%, rgba(15, 20, 33, 0) 50%);
+    background-attachment: fixed;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-solo-darker;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-solo-gray-light rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-solo-blue;
+  }
+}
+
+@layer components {
+  /* Glass panel styles */
+  .glass-panel {
+    @apply bg-solo-darker/80 backdrop-blur-lg border border-solo-gray/30 rounded-md;
+    box-shadow: 0 8px 32px rgba(8, 10, 17, 0.5);
+  }
+  
+  /* Glow effect for text */
+  .text-glow {
+    @apply text-solo-blue-light;
+    text-shadow: 0 0 8px rgba(46, 107, 255, 0.6);
+  }
+  
+  /* Button styles */
+  .solo-button {
+    @apply relative overflow-hidden bg-solo-blue text-white px-6 py-2 rounded-sm font-medium transition-all;
+    box-shadow: 0 0 15px rgba(46, 107, 255, 0.5);
+  }
+  
+  .solo-button:hover {
+    @apply bg-solo-blue-light;
+    box-shadow: 0 0 20px rgba(46, 107, 255, 0.7);
+  }
+  
+  .solo-button:active {
+    @apply transform scale-95;
+  }
+  
+  /* Border glow effect */
+  .border-glow {
+    @apply border border-solo-blue/50 relative;
+    box-shadow: 0 0 5px rgba(46, 107, 255, 0.5);
+  }
+  
+  .border-glow::after {
+    content: '';
+    @apply absolute inset-0 rounded-[inherit] pointer-events-none;
+    box-shadow: inset 0 0 8px rgba(46, 107, 255, 0.3);
+  }
+  
+  /* Progress bar */
+  .progress-bar {
+    @apply h-2 bg-solo-gray rounded-full overflow-hidden;
+  }
+  
+  .progress-bar-fill {
+    @apply h-full bg-blue-gradient rounded-full animate-progress-fill;
+  }
+  
+  /* Page transitions */
+  .page-transition-wrapper {
+    @apply animate-page-in;
+  }
+  
+  /* Floating status icon */
+  .status-icon {
+    @apply relative animate-float;
+  }
+  
+  .status-icon::before {
+    content: '';
+    @apply absolute w-full h-full rounded-full bg-solo-blue-glow/30 animate-status-ping;
+  }
+  
+  /* Card hover effect */
+  .hover-card {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-card:hover {
+    @apply transform -translate-y-1 shadow-glow-md;
+  }
+  
+  /* Level progress indicator */
+  .level-progress {
+    @apply w-full h-1 bg-solo-gray/50 rounded-full overflow-hidden relative mt-1;
+  }
+  
+  .level-progress-fill {
+    @apply h-full bg-solo-blue rounded-full;
+    transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  
+  /* Shimmering border */
+  .shimmer-border {
+    @apply relative;
+  }
+  
+  .shimmer-border::after {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-px bg-border-gradient opacity-70 animate-shine;
+    background-size: 200% 100%;
+  }
+  
+  /* Penalty overlay */
+  .penalty-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: glitch-background 0.3s infinite;
+    backdrop-filter: blur(3px);
+  }
+  
+  .penalty-content {
+    background-color: rgba(20, 0, 0, 0.8);
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    padding: 2rem;
+    max-width: 80%;
+    text-align: center;
+    color: #ff3333;
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) infinite;
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+  }
+  
+  .penalty-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  }
+  
+  .penalty-description {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+  }
+  
+  .penalty-instruction {
+    font-size: 1rem;
+    color: #ff9999;
+    margin-top: 1rem;
+    animation: pulse 2s infinite;
+  }
+  
+  .penalty-complete-button {
+    background-color: rgba(255, 0, 0, 0.7);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 0.75rem 1.5rem;
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    animation: button-pulse 2s infinite;
+    letter-spacing: 1px;
+  }
+  
+  .penalty-complete-button:hover {
+    background-color: rgba(255, 0, 0, 0.9);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+  }
+  
+  .penalty-complete-button:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  }
+  
+  @keyframes button-pulse {
+    0% {
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.9);
+    }
+    100% {
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    }
+  }
+  
+  /* Transition glitch overlay */
+  .transition-glitch-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    animation: transition-glitch 0.8s infinite;
+    backdrop-filter: blur(4px);
+  }
+  
+  @keyframes transition-glitch {
+    0% {
+      background-color: rgba(0, 0, 0, 0.9);
+      box-shadow: inset 0 0 100px rgba(0, 0, 255, 0.3);
+    }
+    15% {
+      background-color: rgba(20, 0, 40, 0.9);
+      box-shadow: inset 0 0 100px rgba(255, 0, 0, 0.4);
+    }
+    30% {
+      background-color: rgba(0, 20, 40, 0.9);
+      box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.3);
+    }
+    45% {
+      background-color: rgba(40, 0, 0, 0.9);
+      box-shadow: inset 0 0 100px rgba(255, 0, 0, 0.5);
+    }
+    60% {
+      background-color: rgba(0, 0, 0, 0.9);
+      box-shadow: inset 0 0 100px rgba(0, 0, 255, 0.4);
+    }
+    75% {
+      background-color: rgba(40, 0, 40, 0.9);
+      box-shadow: inset 0 0 100px rgba(255, 0, 255, 0.3);
+    }
+    90% {
+      background-color: rgba(0, 40, 40, 0.9);
+      box-shadow: inset 0 0 100px rgba(0, 255, 0, 0.3);
+    }
+    100% {
+      background-color: rgba(0, 0, 0, 0.9);
+      box-shadow: inset 0 0 100px rgba(0, 0, 255, 0.3);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.6;
+    }
+  }
+  
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  
+  @keyframes glitch-background {
+    0% { background-color: rgba(255, 0, 0, 0.3); }
+    25% { background-color: rgba(255, 0, 0, 0.4); }
+    50% { background-color: rgba(255, 0, 0, 0.2); }
+    75% { background-color: rgba(255, 0, 0, 0.5); }
+    100% { background-color: rgba(255, 0, 0, 0.3); }
+  }
+  
+  .fade-out {
+    animation: fade-out 0.5s forwards;
+  }
+  
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+}
